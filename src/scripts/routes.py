@@ -32,6 +32,7 @@ def write_page():
         _title = request.form.get("title")
         _author = request.form.get("author")
         _blog = request.form.get("blog_content")
+        db.session.add(blog())
         print(_title, _author, _blog)
 
         # Upload Thumbnail
