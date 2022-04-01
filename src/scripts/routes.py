@@ -34,7 +34,7 @@ def write_page():
         _blog = request.form.get("blog_content")
         print(_title, _author, _blog)
 
-        # Upload Thumbnail
+        Upload Thumbnail
         if 'file' not in request.files:
             flash("no file part")
             return redirect(request.url)
