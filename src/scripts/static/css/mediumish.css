@@ -204,11 +204,13 @@ span.post-name a,span.post-read-more a:hover {
 .mainheading h1.posttitle {
 	font-weight:700;
 	margin-bottom:1rem;
+	word-wrap: break-word;
+	
 }
 .mainheading h1.posttitle-write {
 	font-weight:700;
 	margin-bottom:0.5rem;
-	
+	word-wrap: break-word;
 
 }
 .footer {

@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="icon" href="static/img/favicon.ico">
+<link rel="icon" href="{{ url_for('static', filename='img/favicon.co') }}">
 <title>Mediumish - A Medium style template by WowThemes.net</title>
 <!-- Bootstrap core CSS -->
-<link href="static/css/bootstrap.min.css" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
 <!-- Fonts -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
 <!-- Custom styles for this template -->
-<link href="static/css/mediumish.css" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/mediumish.css') }}" rel="stylesheet">
 </head>
 <body>
 
@@ -28,17 +28,17 @@
 	<div class="container">
 		<!-- begin logo -->
 		<a class="navbar-brand" href="{{ url_for('index_page')}}">
-			<img src="static/img/logo_k1_rev.png" alt="">
+			<img src="{{ url_for('static', filename='img/logo_k1_rev.png') }}" alt="">
 		</a>
 		<!-- end logo -->
 		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 			<!-- begin menu -->
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item active">
-					<a class="nav-link" href="{{ url_for('index_page')}}">Stories</a>
+					<a class="nav-link" href="{{ url_for('index_page')}}">Artikel</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="{{ url_for('write_page')}}">Write</a>
+					<a class="nav-link" href="{{ url_for('write_page')}}">Menulis</a>
 				</li>
 			</ul>
 			<!-- end menu -->
@@ -66,6 +66,9 @@
 		<!-- Begin Fixed Left Share -->
 		<div class="col-md-2 col-xs-12">
 			<div class="share">
+				<p>
+					Author
+				</p>
 				<ul>
 					<li>
 					<a target="_blank" href="https://twitter.com/home?status=http%3A//www.wowthemes.net">
@@ -78,8 +81,12 @@
 					</a>
 					</li>
 				</ul>
+				<div class="sep">
+				</div>
+				<a href="{{ url_for('post_edit_page', post_id=post.id) }}"><strong>Edit</strong></a>
 			</div>
 		</div>
+
 		<!-- End Fixed Left Share -->
 
 		<!-- Begin Post -->
@@ -89,37 +96,32 @@
 				<!-- Begin Top Meta -->
 				<div class="row post-top-meta">
 					<div class="col-md-2">
-						<a href="author.html"><img class="author-thumb" src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x" alt="Sal"></a>
+						<img class="author-thumb" src="https://www.gravatar.com/avatar/e56154546cf4be74e393c62d1ae9f9d4?s=250&amp;d=mm&amp;r=x" alt="Sal">
 					</div>
 					<div class="col-md-10">
-						<a class="link-dark" href="author.html">Sal</a>
+						<a class="link-dark">{{ post.author }}</a>
 						<span class="author-description">Founder of WowThemes.net and creator of <b>"Mediumish"</b> theme that you're currently previewing. Developing professional premium themes, templates, plugins, scripts since 2012.</span>
-						<span class="post-date">22 July 2017</span>
+						<span class="post-date">{{ post.posted_on.strftime('%B %d, %Y') }}</span>
 					</div>
 				</div>
 				<!-- End Top Menta -->
 
-				<h1 class="posttitle">18 Things You Should Learn Before Moving Into a New Home</h1>
+				<h1 class="posttitle">{{ post.title }}</h1>
+
+				<hr>
+				<img class="img-fluid img-thumb" src="data:{{post.mimetype}};base64,{{post.img_base64}}" alt="">
 
 			</div>
 
 			<!-- Begin Post Content -->
 			<div class="article-post">
+				{% for pr in paragraf %}
 				<p>
-					Holy grail funding non-disclosure agreement advisor ramen bootstrapping ecosystem. Beta crowdfunding iteration static business plan paradigm shift stealth mass market seed money rockstar niche market marketing buzz market.
+					{{ pr }}
 				</p>
-				<p>
-					Burn rate release facebook termsheet equity technology. Interaction design rockstar network effects handshake creative startup direct mailing. Technology influencer direct mailing deployment return on investment seed round.
-				</p>
-				<p>
-					 Termsheet business model canvas user experience churn rate low hanging fruit backing iteration buyer seed money. Virality release launch party channels validation learning curve paradigm shift hypotheses conversion. Stealth leverage freemium venture startup business-to-business accelerator market.
-				</p>
-				<blockquote>
-					Gen-z strategy long tail churn rate seed money channels user experience incubator startup partner network low hanging fruit direct mailing. Client backing success startup static responsive web design burn rate A/B testing metrics first mover advantage conversion.
-				</blockquote>
-				<p>
-					Freemium non-disclosure agreement lean startup bootstrapping holy grail ramen MVP iteration accelerator. Strategy market ramen leverage paradigm shift seed round entrepreneur crowdfunding social proof angel investor partner network virality.
-				</p>
+				
+				{% endfor %}
+
 			</div>
 			<!-- End Post Content -->
 			
@@ -162,10 +164,10 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="static/js/jquery.min.js"></script>
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-<script src="static/js/bootstrap.min.js"></script>
-<script src="static/js/ie10-viewport-bug-workaround.js"></script>
-<script src="static/js/mediumish.js"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/ie10-viewport-bug-workaround.js') }}"></script>
+<script src="{{ url_for('static', filename='js/mediumish.js') }}"></script>
 </body>
 </html>

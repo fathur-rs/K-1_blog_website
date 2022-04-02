@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 from scripts import app
 import os
 from scripts import Blogs, db
-from sqlalchemy import desc
+from sqlalchemy import desc, update
 import base64
 
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
@@ -29,11 +29,15 @@ def index_page():
     return render_template('index.html', posts=all_post)
 
 
-@app.route("/post", methods=['GET', 'POST'])
-def post_page():
-    # post_id = db.session.query(Blogs.id).order_by(desc(Blogs.posted_on)).first()
-
-    return render_template('post.html')
+@app.route("/post/<int:post_id>", methods=['GET', 'POST'])
+def post_page(post_id):
+    post = Blogs.query.filter_by(id=post_id).one()
+    content = post.blog_content.split('\p')
+    paragraf = []
+    for i in content:
+        print(f"{i}\n")
+        paragraf.append(i)
+    return render_template('post.html', post=post, paragraf=paragraf)
 
 
 @app.route("/write", methods=["POST", "GET"])
@@ -75,3 +79,39 @@ def write_page():
         
     return render_template('write.html')
 
+@app.route("/post/<int:post_id>/edit", methods=['GET', 'POST'])
+def post_edit_page(post_id):
+    post_edit = Blogs.query.filter_by(id=post_id).one()
+
+    content = post_edit.blog_content.split('\p')
+    paragraf = []
+    for i in content:
+        print(f"{i}\n")
+        paragraf.append(i)
+
+    if request.method == 'POST':
+        _title_edit = request.form.get("title_edit")
+        _author_edit = request.form.get("author_edit")
+        _blog_edit = request.form.get("blog_content_edit")
+        print(_title_edit, _author_edit, _blog_edit)
+
+        file_edit = request.files['file_edit']
+        filename_edit = secure_filename(file_edit.filename)
+        mimetype_edit = file_edit.mimetype
+        img_base_64 = render_picture(file_edit.read())
+
+        update_db = db.session.query(Blogs).filter_by(id=post_id).update({
+            'title':_title_edit,
+            'author':_author_edit,
+            'img':file_edit.read(),
+            'img_base64':img_base_64,
+            'img_name': filename_edit,
+            'mimetype': mimetype_edit,
+            'blog_content': _blog_edit})
+
+        db.session.commit()
+
+        
+        return redirect(url_for('post_page',post_id=post_id ))
+
+    return render_template("post_edit.html", post_edit=post_edit, paragraf=paragraf)
