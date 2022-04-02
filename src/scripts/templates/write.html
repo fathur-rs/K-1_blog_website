@@ -23,48 +23,42 @@
 
     <!-- Begin Nav
 ================================================== -->
-<nav class="navbar navbar-toggleable-md navbar-light bg-white fixed-top mediumnavigation">
-	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-		data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false"
-		aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
-	<div class="container">
-		<!-- begin logo -->
-		<a class="navbar-brand" href="{{ url_for('index_page')}}">
-			<img src="static/img/logo_k1_rev.png" alt="">
-		</a>
-		<!-- end logo -->
-		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
-			<!-- begin menu -->
-			<ul class="navbar-nav ml-auto">
-				<li class="nav-item active">
-					<a class="nav-link" href="{{ url_for('index_page')}}">Stories</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="{{ url_for('post_page')}}">Post</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="{{ url_for('author_page')}}">Author</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="{{ url_for('write_page')}}">Write</a>
-				</li>
-			</ul>
-			<!-- end menu -->
-			<!-- begin search -->
-			<form class="form-inline my-2 my-lg-0">
-				<input class="form-control mr-sm-2" type="text" placeholder="Search">
-				<span class="search-icon"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25">
-						<path
-							d="M20.067 18.933l-4.157-4.157a6 6 0 1 0-.884.884l4.157 4.157a.624.624 0 1 0 .884-.884zM6.5 11c0-2.62 2.13-4.75 4.75-4.75S16 8.38 16 11s-2.13 4.75-4.75 4.75S6.5 13.62 6.5 11z">
-						</path>
-					</svg></span>
-			</form>
-			<!-- end search -->
-		</div>
-	</div>
-</nav>
+    <nav class="navbar navbar-toggleable-md navbar-light bg-white fixed-top mediumnavigation">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="container">
+            <!-- begin logo -->
+            <a class="navbar-brand" href="{{ url_for('index_page')}}">
+                <img src="static/img/logo_k1_rev.png" alt="">
+            </a>
+            <!-- end logo -->
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <!-- begin menu -->
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ url_for('index_page')}}">Stories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('write_page')}}">Write</a>
+                    </li>
+                </ul>
+                <!-- end menu -->
+                <!-- begin search -->
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                    <span class="search-icon"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25">
+                            <path
+                                d="M20.067 18.933l-4.157-4.157a6 6 0 1 0-.884.884l4.157 4.157a.624.624 0 1 0 .884-.884zM6.5 11c0-2.62 2.13-4.75 4.75-4.75S16 8.38 16 11s-2.13 4.75-4.75 4.75S6.5 13.62 6.5 11z">
+                            </path>
+                        </svg></span>
+                </form>
+                <!-- end search -->
+            </div>
+        </div>
+    </nav>
     <!-- End Nav
 ================================================== -->
 
@@ -86,7 +80,7 @@
                     <!-- Begin Top Meta -->
                     <div class="row justify-content-left">
                         <h1 class="sitetitle">Add Post</h1>
-                            <hr style="height:2px;border-width:0;color:gainsboro;background-color:gainsboro">
+                        <hr style="height:2px;border-width:0;color:gainsboro;background-color:gainsboro">
                         </h1>
                     </div>
                     <!-- End Top Menta -->
@@ -97,16 +91,14 @@
                     <div class="control-group">
                         <div class="form-group floating-label-form-group controls">
                             <label>Title</label>
-                            <input type="text" class="form-control" placeholder="Title" name="title" id="title" required
-                                data-validation-required-message="Please enter a title." >
+                            <input onkeyup="success()" type="text" class="form-control" placeholder="Title" name="title" id="title" required data-validation-required-message="Please enter a title." required>
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
                     <div class="control-group">
                         <div class="form-group col-xs-12 floating-label-form-group">
                             <label>Author</label>
-                            <input type="text" class="form-control" placeholder="Author" name="author" id="author"
-                                required data-validation-required-message="Please enter your phone number." required>
+                            <input onkeyup="success()" type="text" class="form-control" placeholder="Author" name="author" id="author" data-validation-required-message="Please enter your phone number." required>
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
@@ -118,8 +110,7 @@
                                     <img id="file-ip-1-preview" class="image1">
                                 </div>
                                 <!-- <label for="file-ip-1">Add Thumbnail</label> -->
-                                <input type="file" class="form-control" placeholder="Add Thumbnail" name="file" id="file-ip-1" accept="image/*" onchange="showPreview(event)"
-                                    required data-validation-required-message="Please enter your phone number." required>
+                                <input onkeyup="success()" type="file" class="form-control" placeholder="Add Thumbnail" name="file" id="file-ip-1" accept="image/*" onchange="showPreview(event)" data-validation-required-message="Please enter your phone number." required>
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
@@ -127,9 +118,7 @@
                     <div class="control-group">
                         <div class="form-group floating-label-form-group controls">
                             <label>Blog Content</label>
-                            <textarea rows="15" class="form-control" placeholder="Blog content" name="blog_content"
-                                id="content" required
-                                data-validation-required-message="Please enter a message."></textarea>
+                            <textarea rows="15" class="form-control" placeholder="Blog content" name="blog_content" id="content" data-validation-required-message="Please enter a message." required></textarea>
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
