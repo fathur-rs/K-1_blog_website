@@ -43,8 +43,9 @@ def post_page(post_id):
 @app.route("/write", methods=["POST", "GET"])
 def write_page():
     if request.method == "POST":
-        _title = request.form.get("title")
         _author = request.form.get("author")
+        _author_bio = request.form.get("author_bio")
+        _title = request.form.get("title")
         _blog = request.form.get("blog_content")
         print(_title, _author, _blog)
 
@@ -53,27 +54,43 @@ def write_page():
             flash("no file part")
             return redirect(request.url)
 
+        file_author = request.files['file_author']
         file = request.files['file']
 
-        if file.filename == '':
+        if (file.filename == '') & (file_author.filename == ''):
             flash('No Image selected for uploading')
             return redirect(request.url)
 
-        if file and allowed_file(file.filename):
+        if (file and allowed_file(file.filename)) & (file_author and allowed_file(file_author.filename)):
             filename = secure_filename(file.filename)
+            file_author_name = secure_filename(file_author.filename)
             mimetype = file.mimetype
+            mimetype_author = file_author.mimetype
 
             if not filename or not mimetype:
                 return '400'
 
             _img_base64 = render_picture(file.read())
+            _img_base64_author = render_picture(file_author.read())
 
-            blog = Blogs(title=_title, author=_author, img=file.read(), img_base64=_img_base64, img_name=filename, mimetype=mimetype, blog_content=_blog)
+            blog = Blogs(title=_title, 
+                        author=_author, 
+                        author_bio = _author_bio,
+                        img_author = file_author.read(),
+                        img_base64_author = _img_base64_author,
+                        img_name_author = file_author_name,
+                        mimetype_author = mimetype_author,
+                        img=file.read(), 
+                        img_base64=_img_base64, 
+                        img_name=filename, 
+                        mimetype=mimetype, 
+                        blog_content=_blog)
+                        
             db.session.add(blog)
             db.session.commit()
 
             flash("Image Succesfuly")
-            return render_template('write.html')
+            return redirect(url_for('post_page',post_id=post_id ))
         else:
             flash("Error")
         
@@ -93,7 +110,13 @@ def post_edit_page(post_id):
         _title_edit = request.form.get("title_edit")
         _author_edit = request.form.get("author_edit")
         _blog_edit = request.form.get("blog_content_edit")
+        _author_bio = request.form.get("author_bio_edit")
         print(_title_edit, _author_edit, _blog_edit)
+
+        file_author_edit = request.files['file_author_edit']
+        filename_author_edit = secure_filename(file_author_edit.filename)
+        mimetype_author_edit = file_author_edit.mimetype
+        img_base_64_author = render_picture(file_author_edit.read())
 
         file_edit = request.files['file_edit']
         filename_edit = secure_filename(file_edit.filename)
@@ -103,6 +126,11 @@ def post_edit_page(post_id):
         update_db = db.session.query(Blogs).filter_by(id=post_id).update({
             'title':_title_edit,
             'author':_author_edit,
+            'author_bio':_author_bio,
+            'img_author':file_author_edit.read(),
+            'img_base64_author': img_base_64_author,
+            'img_name_author': filename_author_edit,
+            'mimetype_author': mimetype_author_edit,
             'img':file_edit.read(),
             'img_base64':img_base_64,
             'img_name': filename_edit,

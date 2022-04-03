@@ -492,3 +492,8 @@ ul.tags li a:hover {
 	cursor:pointer;
   }
 
+hr.pagination {
+	border: 2px solid rgb(0, 0, 0);
+	background:#eee; 
+	opacity: 50%;
+}

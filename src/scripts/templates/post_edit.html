@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="{{ url_for('static', filename='img/favicon.co') }}">
-    <title>Mediumish - A Medium style template by WowThemes.net</title>
+    <link rel="icon" href="{{ url_for('static', filename='img/logo_k1_rev.png') }}">
+    <title>Kelompok 1</title>
     <!-- Bootstrap core CSS -->
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Fonts -->
@@ -88,16 +88,43 @@
                 </div>
                 <!-- Begin Post Conten -->
                 <form name="addForm" id="addForm" method="POST" enctype="multipart/form-data" novalidate>
+                    <h3 class="write">Author</h3>
                     <div class="control-group">
-                        <div class="form-group floating-label-form-group controls">
-                            <textarea rows="1" onkeyup="success()" type="text" class="form-control" placeholder="Title" name="title_edit" id="title_edit" required data-validation-required-message="Please enter a title." required>{{ post_edit.title }}</textarea>
+                        <div class="form-group col-xs-12 floating-label-form-group">
+                            <label>Author</label>
+                            <textarea rows="1" onkeyup="success()" type="text" class="form-control" placeholder="Author" name="author_edit" id="author_edit" data-validation-required-message="Please enter your phone number." required>{{ post_edit.author }}</textarea>
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
                     <div class="control-group">
                         <div class="form-group col-xs-12 floating-label-form-group">
-                            <label>Author</label>
-                            <textarea rows="1" onkeyup="success()" type="text" class="form-control" placeholder="Author" name="author_edit" id="author_edit" data-validation-required-message="Please enter your phone number." required>{{ post_edit.author }}</textarea>
+                            <label>Author Bio</label>
+                            <textarea rows="5" onkeyup="success()" type="text" class="form-control" placeholder="Author Bio" name="author_bio_edit" id="author_bio_edit" data-validation-required-message="Please enter your phone number." required>{{ post_edit.author_bio }}</textarea>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group">
+                            <p style="font-size: 1.5em; font-family: Lato; color:#777;">Author Photo</p>
+                            <div class="form-control">
+                                <div class="preview_author">
+                                    <img id="file-ip-1-preview_author" class="image1_author" src="data:{{post_edit.mimetype_author}};base64,{{post_edit.img_base64_author}}">
+                                </div>
+                                <!-- <label for="file-ip-1">Add Thumbnail</label> -->
+                                <input onkeyup="success()" type="file" class="form-control" placeholder="Author Photo" name="file_author_edit" id="file-ip-1_author_edit" accept="image/*" onchange="showPreview_author(event)" data-validation-required-message="Please enter your phone number." required>
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <hr class="pagination">
+                    <br>
+                    <br>
+                    <h3 class="write">Artikel</h3>
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <textarea rows="1" onkeyup="success()" type="text" class="form-control" placeholder="Title" name="title_edit" id="title_edit" required data-validation-required-message="Please enter a title." required>{{ post_edit.title }}</textarea>
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
@@ -179,6 +206,17 @@
             }
         }
     </script>
+        </script>
+        <script type="text/javascript">
+            function showPreview_author(event) {
+                if (event.target.files.length > 0) {
+                    var src = URL.createObjectURL(event.target.files[0]);
+                    var preview = document.getElementById("file-ip-1-preview_author");
+                    preview.src = src;
+                    preview.style.display = "block";
+                }
+            }
+        </script>
 </body>
 
 </html>

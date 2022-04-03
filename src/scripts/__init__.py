@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from flask_bcrypt import Bcrypt
 
 UPLOAD_FOLDER = "scripts\static"
 
@@ -20,12 +21,16 @@ class Blogs(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
     author = db.Column(db.String(100), nullable=False)
+    author_bio = db.Column(db.Text, nullable=True)
+    img_author = db.Column(db.Text, nullable=True)
+    img_base64_author = db.Column(db.Text, nullable=True)
+    img_name_author = db.Column(db.Text, nullable=True)
+    mimetype_author = db.Column(db.Text, nullable=True)
     img = db.Column(db.Text, nullable=True)
     img_base64 = db.Column(db.Text, nullable=True)
     img_name = db.Column(db.Text, nullable=True)
     mimetype = db.Column(db.Text, nullable=True)
     blog_content = db.Column(db.Text, nullable=False)
     posted_on = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
-
 
 from scripts import routes
